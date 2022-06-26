@@ -1,22 +1,23 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import "./progress.css";
+import { connect } from "react-redux";
 
-const CustomizedProgressBar = ({ current, isClicked }) => {
+const CustomizedProgressBar = ({ isClicked, genres_state }) => {
 
   return !isClicked ? (
     <Box className="progress-bar-wrapper">
-        <Box className="progress-circle" sx={{background: current?.count === 1 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:current?.count === 1 ? "#ffffff" : "rgb(59,68,75)"}}>
+        <Box className="progress-circle" sx={{background: genres_state.pages === 1 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:genres_state.pages === 1 ? "#ffffff" : "rgb(59,68,75)"}}>
             1
         </Box>
 
         <Box className="progress-bar"></Box>
-        <Box className="progress-circle" sx={{background: current?.count === 2 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:current?.count === 2 ? "#ffffff" : "rgb(59,68,75)"}}>
+        <Box className="progress-circle" sx={{background: genres_state.pages === 2 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:genres_state.pages === 2 ? "#ffffff" : "rgb(59,68,75)"}}>
             2
         </Box>
 
         <Box className="progress-bar"></Box>
-        <Box className="progress-circle" sx={{background: current?.count === 3 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:current?.count === 3 ? "#ffffff" : "rgb(59,68,75)"}}>
+        <Box className="progress-circle" sx={{background: genres_state.pages === 3 ? "rgb(54,69,79)"   : "rgb(242,243,244)",  color:genres_state.pages === 3 ? "#ffffff" : "rgb(59,68,75)"}}>
             ...
         </Box>
 
@@ -27,4 +28,6 @@ const CustomizedProgressBar = ({ current, isClicked }) => {
   );
 };
 
-export default CustomizedProgressBar;
+export default connect((state) => ({
+    genres_state: state.wizard_reducer,
+  }))(CustomizedProgressBar);

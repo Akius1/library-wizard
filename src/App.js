@@ -1,11 +1,19 @@
-import './App.css';
-import Genre from './pages/genre';
+import "./App.css";
+import Genre from "./pages/genre";
+import { Provider } from "react-redux";
+import { store, persistor } from "./store/store";
+import { PersistGate } from "redux-persist/integration/react";
+import LandingPage from './pages'
 
 function App() {
   return (
-    <div className="App">
-      <Genre />
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div className="App">
+          <LandingPage />
+        </div>
+      </PersistGate>
+    </Provider>
   );
 }
 
