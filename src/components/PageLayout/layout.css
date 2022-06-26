@@ -1,0 +1,16 @@
+.container-wrap {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 760px;
+  padding: 1rem;
+  /* border: 1px solid black; */
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  height: 100vh;
+
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box; /* for Safari */
+  background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+  box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+}
