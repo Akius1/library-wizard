@@ -1,16 +1,15 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import SendIcon from "@mui/icons-material/Send";
 import Stack from "@mui/material/Stack";
 import "./buttons.css";
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-const theme = createTheme({
+export const theme = createTheme({
     palette: {
         neutral: {
-            main: '#dcdcdc',
-            contrastText: '#dbd7d2',
+            main: 'rgb(54,69,79)',
+            contrastText: '#fff',
           },
     },
   });
@@ -28,10 +27,11 @@ export default function IconLabelButtons({}) {
           variant="outlined"
           startIcon={<ArrowBackIosIcon />}
           color="neutral"
+          sx={{paddingLeft:"1rem", paddingRight:"1.8rem"}}
         >
           Back
         </Button>
-        <Button variant="contained" color="neutral" >Next</Button>
+        <Button variant="contained" color="neutral"  sx={{paddingLeft:"2rem", paddingRight:"2rem"}}>Next</Button>
       </ThemeProvider>
      
     </Stack>
