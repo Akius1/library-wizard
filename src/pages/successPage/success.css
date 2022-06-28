@@ -1,0 +1,30 @@
+.container-success-wrap {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 500px;
+    padding: 1rem;
+    /* border: 1px solid black; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    height: 100%;
+  
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+    box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .checked-circle{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 8rem;
+      height: 8rem;
+      border-radius: 50%;
+      background-color: #D0F0C0;
+
+      margin: 4rem 0 1rem 0;
+  }
