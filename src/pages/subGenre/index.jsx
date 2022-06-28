@@ -1,31 +1,24 @@
-import React , { useState }  from 'react';
+import React from "react";
 import { connect } from "react-redux";
 import { Box, Button, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Layout from '../../components/PageLayout';
+import Layout from "../../components/PageLayout";
+import { addSelectedSubGenre, setPage } from "../../store/actions";
 
-const SubGenre = ({genres_state, dispatch}) => {
-  const [clickedButton, setClickedButton] = useState({
-    id: "",
-    isClicked: false,
-  });
+const SubGenre = ({ genres_state, dispatch }) => {
   const Item = styled(Button)(({ theme }) => ({
-    // backgroundColor:  '#1A2027' ,
     ...theme.typography.body2,
-    // padding: theme.spacing(2),
     textAlign: "center",
     border: `1px solid rgb(54,69,79)`,
     color: theme.palette.text.secondary,
   }));
 
-  console.log(genres_state.selected_genre[0]?.subgenres)
-
   const handleClick = (id) => {
-    setClickedButton({
-      id: id,
-      isClicked: true,
-    });
-    // dispatch(addSelectedGenre(id))
+    dispatch(addSelectedSubGenre(id));
+  };
+
+  const goToAddSubgenre = () => {
+    dispatch(setPage("next", 1));
   };
   return (
     <Layout>
@@ -39,13 +32,11 @@ const SubGenre = ({genres_state, dispatch}) => {
               key={genre.id}
               onClick={() => handleClick(genre.id)}
             >
-              {genre.id === clickedButton?.id ? (
+              {genre.id === genres_state?.selected_subgenre[0]?.id ? (
                 <Item
                   sx={{
-                    backgroundColor: clickedButton.isClicked
-                      ? "rgb(54,69,79)"
-                      : "#fff",
-                    color: clickedButton.isClicked && "#fff",
+                    backgroundColor: "rgb(54,69,79)",
+                    color: "#fff",
                     textTransform: "capitalize",
                     padding: "0.5rem 1rem",
                   }}
@@ -63,30 +54,24 @@ const SubGenre = ({genres_state, dispatch}) => {
                   {genre.name}
                 </Item>
               )}
-              
             </Grid>
           ))}
-          <Grid
-              item
-              xs={4}
-              md={2}
-              onClick={() => handleClick()}
+          <Grid item xs={4} md={2} onClick={goToAddSubgenre}>
+            <Item
+              sx={{
+                backgroundColor: "#fff",
+                textTransform: "capitalize",
+                padding: "0.5rem 1.5rem",
+              }}
             >
-              <Item
-                  sx={{
-                    backgroundColor: "#fff",
-                    textTransform: "capitalize",
-                    padding: "0.5rem 1.5rem",
-                  }}
-                >
-                  Add new
-                </Item>
-              </Grid>
+              Add new
+            </Item>
+          </Grid>
         </Grid>
       </Box>
     </Layout>
-  )
-}
+  );
+};
 
 export default connect((state) => ({
   genres_state: state.wizard_reducer,

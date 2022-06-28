@@ -1,12 +1,17 @@
-import { Box, Typography, Button } from "@mui/material";
+
 import React from "react";
+import { connect } from "react-redux";
 import "./success.css";
+import { Box, Typography, Button } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "../../components/Buttons";
 import CheckIcon from "@mui/icons-material/Check";
+import { resetAll } from "../../store/actions";
 
-const SuccessPage = () => {
-  const BackToFirstPage = () => {};
+const SuccessPage = ({dispatch}) => {
+  const BackToFirstPage = () => {
+    dispatch(resetAll())
+  };
   return (
     <Box className="container-success-wrap" >
       <Box className="checked-circle">
@@ -27,4 +32,6 @@ const SuccessPage = () => {
   );
 };
 
-export default SuccessPage;
+export default connect((state) => ({
+  genres_state: state.wizard_reducer,
+}))(SuccessPage);
