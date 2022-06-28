@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, Button, Grid } from "@mui/material";
 import Layout from "../../components/PageLayout";
 import { connect } from "react-redux";
@@ -6,26 +6,14 @@ import { styled } from "@mui/material/styles";
 import { addSelectedGenre } from "../../store/actions";
 
 const Genre = ({genres_state, dispatch}) => {
-  const [clickedButton, setClickedButton] = useState({
-    id: "",
-    isClicked: false,
-  });
   const Item = styled(Button)(({ theme }) => ({
-    // backgroundColor:  '#1A2027' ,
     ...theme.typography.body2,
-    // padding: theme.spacing(2),
     textAlign: "center",
     border: `1px solid rgb(54,69,79)`,
     color: theme.palette.text.secondary,
   }));
 
-  console.log(genres_state)
-
   const handleClick = (id) => {
-    setClickedButton({
-      id: id,
-      isClicked: true,
-    });
     dispatch(addSelectedGenre(id))
   };
   return (
@@ -40,15 +28,12 @@ const Genre = ({genres_state, dispatch}) => {
               key={genre.id}
               onClick={() => handleClick(genre.id)}
             >
-              {genre.id === clickedButton?.id ? (
+              {genre.id === genres_state?.selected_genre[0]?.id ? (
                 <Item
                   sx={{
-                    backgroundColor: clickedButton.isClicked
-                      ? "rgb(54,69,79)"
-                      : "#fff",
+                    backgroundColor:  "rgb(54,69,79)",
                     textTransform: "capitalize",
-                    color: clickedButton.isClicked && "#fff",
-                    textTransform: "capitalize",
+                    color: "#fff",
                     padding: "0.5rem 1.5rem",
                   }}
                 >

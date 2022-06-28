@@ -1,3 +1,4 @@
+import React, {useEffect} from "react";
 import {
   Box,
   TextField,
@@ -5,26 +6,40 @@ import {
   FormControlLabel,
   Checkbox,
 } from "@mui/material";
-import React from "react";
 import Layout from "../../components/PageLayout";
 
 const AddSubgenre = () => {
-  const [form, setForm] = React.useState({
-    checked: false,
+  const initial = {
+    isDescriptionRequired: false,
     name: "",
-  });
+  };
+  const [form, setForm] = React.useState(initial);
+  const [error, setError] = React.useState(true);
 
   const handleChange = (event) => {
     const { name, value, checked } = event.target;
-    setForm({ ...form, [name]: name === "checked" ? checked: value });
+    setForm({ ...form, [name]: name === "isDescriptionRequired" ? checked : value });
   };
+
+
+  const submitForm = () => {
+    if (form.name) {
+      return setError(false);
+    }else{
+      setError(true);
+    }
+  };
+  useEffect(()=>{
+    submitForm()
+   //eslint-disable-next-line react-hooks/exhaustive-deps
+  },[form.name])
   return (
-    <Layout>
+    <Layout error={error} initial={initial} form={form} setError={setError} setForm={setForm}>
       <Box
         component="form"
         sx={{
-          "& .MuiTextField-root": {mt:1, mb:3, width: "100%" },
-          "& .MuiFormControlLabel-root":  {mt:1, mb:5,}
+          "& .MuiTextField-root": { mt: 1, mb: 3, width: "100%" },
+          "& .MuiFormControlLabel-root": { mt: 1, mb: 5 },
         }}
         noValidate
         autoComplete="off"
@@ -44,9 +59,9 @@ const AddSubgenre = () => {
           <FormControlLabel
             control={
               <Checkbox
-                name="checked"
+                name="isDescriptionRequired"
                 color="default"
-                checked={form.checked}
+                checked={form.isDescriptionRequired}
                 onChange={handleChange}
               />
             }

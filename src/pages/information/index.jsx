@@ -1,4 +1,5 @@
-import React from "react";
+import React,  {useEffect} from "react";
+import { connect } from "react-redux";
 import {
   Box,
   TextField,
@@ -17,8 +18,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
 
-const Information = () => {
+const Information = ({genres_state}) => {
   const [value, setValue] = React.useState(new Date());
+  const [isRequired, setIsRequired] = React.useState(true);
   const [form, setForm] = React.useState({
     bookTitle: "",
     author: "",
@@ -35,13 +37,36 @@ const Information = () => {
   const handleDate = (newValue) => {
     setValue(newValue);
   };
+  
+  let status = genres_state?.temp_subgenre?.length > 1 ? genres_state?.temp_subgenre[0]?.isDescriptionRequired :genres_state?.selected_subgenre[0]?.isDescriptionRequired;
+  const submitForm = () => {
+    if(status){
+      if (form.bookTitle && form.description) {
+        return setIsRequired(false);
+      }
+    }else{
+      if (form.bookTitle) {
+        return setIsRequired(false);
+      }else{
+        setIsRequired(true);
+      }
+    }
+   
+  };
+
+  useEffect(()=>{
+    submitForm()
+   //eslint-disable-next-line react-hooks/exhaustive-deps
+  },[form.bookTitle, form.description])
 
   const handleChange = (event) => {
-    const { name, value, checked } = event.target;
-    setForm({ ...form, [name]: name === "checked" ? checked : value });
+    const { name, value } = event.target;
+    setForm({ ...form, [name]: value });
   };
+
+
   return (
-    <Layout>
+    <Layout isRequired={isRequired} form={form}>
       <Box
         component="form"
         sx={{
@@ -63,6 +88,8 @@ const Information = () => {
               size="small"
               placeholder="Book title"
               onChange={handleChange}
+              required
+              label="Required"
             />
           </FormControl>
 
@@ -71,9 +98,11 @@ const Information = () => {
             <Select
               id="author"
               // value={form.author}
+              name="author"
               onChange={handleChange}
               size="small"
               placeholder="Author"
+              
             >
               <MenuItem value={"Paul Eneche"}>Paul Eneche</MenuItem>
               <MenuItem value={"Larry King"}>Larry King</MenuItem>
@@ -101,6 +130,7 @@ const Information = () => {
             <Select
               id="publisher"
               // value={form.publisher}
+              name="publisher"
               onChange={handleChange}
               size="small"
               placeholder="Publisher"
@@ -142,6 +172,7 @@ const Information = () => {
             <Select
               id="format"
               // value={form.format}
+              name="format"
               onChange={handleChange}
               size="small"
               placeholder="format"
@@ -166,12 +197,14 @@ const Information = () => {
                 size="small"
                 placeholder="Edition"
                 onChange={handleChange}
+            
               />
             </FormControl>
             <FormControl sx={{ width: "25ch" }}>
               <FormLabel component="legend">Edition language</FormLabel>
               <Select
                 id="language"
+                name="language"
                 // value={form.language}
                 onChange={handleChange}
                 size="small"
@@ -194,8 +227,9 @@ const Information = () => {
               placeholder="Type the description"
               onChange={handleChange}
               multiline
-              rows={4}
-             
+              rows={4} 
+              required={status}
+              label= {status ? "Required": ''}
             />
           </FormControl>
         </FormGroup>
@@ -204,4 +238,6 @@ const Information = () => {
   );
 };
 
-export default Information;
+export default connect((state) => ({
+  genres_state: state.wizard_reducer,
+}))(Information);

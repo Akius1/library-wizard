@@ -7,7 +7,6 @@ import SubGenre from './subGenre';
 import SuccessPage from './successPage';
 
 const LandingPage = ({genres_state}) => {
-    console.log(genres_state.pages)
     switch (genres_state.pages) {
         case 1:
           return (

@@ -11,11 +11,12 @@ export const addSelectedGenre = (itemID) => {
   };
 };
 
-export const setPage = (type) => {
+export const setPage = (type,count) => {
   return {
     type: actionTypes.SET_PAGE,
     payload: {
      type: type,
+     page: count
     },
   };
 };
@@ -28,4 +29,20 @@ export const addSelectedSubGenre = (itemID) => {
     },
   };
 };
+
+export const addSubgenre = (itemID, form) =>{
+  return {
+    type: actionTypes.ADD_SUBGENRE,
+    payload: {
+      id:itemID,
+      data: form
+    },
+  };
+}
+
+export const resetAll = () =>{
+  return {
+    type: actionTypes.RESET_ALL,
+  };
+}
 

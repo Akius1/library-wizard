@@ -6,7 +6,7 @@ import Stack from "@mui/material/Stack";
 import "./buttons.css";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { setPage } from "../../store/actions";
+import { addSubgenre, setPage } from "../../store/actions";
 export const theme = createTheme({
   palette: {
     neutral: {
@@ -16,14 +16,25 @@ export const theme = createTheme({
   },
 });
 
-function IconLabelButtons({genres_state, dispatch}) {
+function IconLabelButtons({ genres_state, dispatch, ...props }) {
   const nextPage = () => {
-    dispatch(setPage('next'))
+    if (genres_state.pages === 3) {
+      dispatch(addSubgenre(genres_state?.selected_genre[0]?.id, props.form));
+
+      props.setForm(props.initial);
+    } else if (genres_state.pages === 4) {
+      console.log({ BookDetails: props.form });
+      dispatch(setPage("next", 1));
+    } else {
+      let pageCount = genres_state.pages === 2 ? 2 : 1;
+      dispatch(setPage("next", pageCount));
+    }
   };
 
-  const prevPage = () =>{
-    dispatch(setPage('prev'))
-  }
+  const prevPage = () => {
+    let pageCount = genres_state.pages === 4 ? 2 : 1;
+    dispatch(setPage("prev", pageCount));
+  };
 
   return (
     <Stack
@@ -47,10 +58,18 @@ function IconLabelButtons({genres_state, dispatch}) {
           variant="contained"
           color="neutral"
           sx={{ paddingLeft: "2rem", paddingRight: "2rem" }}
-          disabled={genres_state.pages === 5 || genres_state.selected_genre.length < 1 }
+          disabled={
+            genres_state.pages === 5 ||
+            (genres_state.pages === 1 &&
+              genres_state.selected_genre.length < 1) ||
+            (genres_state.pages === 2 &&
+              genres_state.selected_subgenre.length < 1) ||
+            (genres_state.pages === 3 && props.error) ||
+            (genres_state.pages === 4 && props.isRequired)
+          }
           onClick={nextPage}
         >
-          Next
+          {genres_state.pages === 4 ? "Add" : "Next"}
         </Button>
       </ThemeProvider>
     </Stack>
