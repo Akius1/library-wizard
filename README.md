@@ -26,7 +26,7 @@ you will have four steps.
 4. Github action and Heroku for CI/CD.
 
 ### URLS AND API
-Hosted Frontend Url:  
+Hosted Frontend Url: https://books-wizards.herokuapp.com/
 GithUrl: https://github.com/Akius1/library-wizard,
 
 
@@ -36,10 +36,11 @@ GithUrl: https://github.com/Akius1/library-wizard,
 1. Clone repository : https://github.com/Akius1/library-wizard.git
 2. Install depencies : npm install
 3. Start the application : npm run start
-4. Or simply visit the Frontend URl: 
+4. Or simply visit the Frontend URl: https://books-wizards.herokuapp.com/
 
 ### Additional Features
 1. CI/CD
-2. Unit tested all endpoints
+2. Unit test
+3. Mobile responsive
 
 
