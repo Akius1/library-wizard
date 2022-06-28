@@ -19,13 +19,13 @@ you will have four steps.
 
 
 ## Stacks used
-1. React Js - Frontend implementations
+1. React - Frontend implementations
 2. Redux - To manage the states
 3. Material Ui for styling across the app
 4. React Testing Library for test
 4. Github action and Heroku for CI/CD.
 
-### URLS AND API
+### URLS
 Hosted Frontend Url: https://books-wizards.herokuapp.com/
 
 GithUrl: https://github.com/Akius1/library-wizard,
